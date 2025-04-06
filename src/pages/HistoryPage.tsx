@@ -23,16 +23,13 @@ function HistoryPage() {
     if (storedOrderHistory) {
       const parsedHistory: OrderHistory[] = JSON.parse(storedOrderHistory);
       
-      // Tambahkan transaksi yang ada di localStorage ke dalam store hanya jika belum ada
       parsedHistory.forEach((order) => {
-        // Cek apakah order sudah ada di orderHistory, jika belum baru ditambahkan
         if (!orderHistory.find(existingOrder => existingOrder.id === order.id)) {
           addOrder(order); 
         }
       });
     }
 
-    // Update status untuk transaksi baru yang sedang 'pending'
     orderHistory.forEach((order) => {
       if (order.status === 'pending' && !statusUpdate.has(order.id)) {
         setTimeout(() => {
@@ -51,12 +48,18 @@ function HistoryPage() {
       <div className="text-center py-12">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">No order history</h2>
         <p className="text-gray-600">You haven't made any orders yet.</p>
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-between mt-4">
           <button
             onClick={handleBack}
             className="text-blue-600 hover:text-blue-800"
           >
-            ← Continue Shopping
+            ← Back
+          </button>
+          <button
+            onClick={handleBack}
+            className="text-blue-600 hover:text-blue-800 flex items-center"
+          >
+            <span className="mr-2">→</span> Continue Shopping
           </button>
         </div>
       </div>
@@ -66,12 +69,20 @@ function HistoryPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-4">
-        <button
-          onClick={handleBack}
-          className="text-blue-600 hover:text-blue-800 flex items-center"
-        >
-          <span className="mr-2">&larr;</span> Back
-        </button>
+        <div className="flex justify-between items-center">
+          <button
+            onClick={handleBack}
+            className="text-blue-600 hover:text-blue-800 flex items-center"
+          >
+            <span className="mr-2">&larr;</span> Back
+          </button>
+          <button
+            onClick={handleBack}
+            className="text-blue-600 hover:text-blue-800 flex items-center"
+          >
+            <span className="mr-2">→</span> Continue Shopping
+          </button>
+        </div>
       </div>
 
       <h2 className="text-2xl font-semibold text-gray-800 mb-6">Order History</h2>

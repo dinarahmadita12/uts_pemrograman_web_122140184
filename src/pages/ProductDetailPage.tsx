@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useStore } from '../store/useStore';
 import LoadingSpinner from '../components/LoadingSpinner';
-import type { Product, CartItem } from '../types';  // Pastikan CartItem diimpor dengan benar
+import type { Product, CartItem } from '../types';  
 
 function ProductDetailPage() {
   const { id } = useParams();
@@ -26,14 +26,13 @@ function ProductDetailPage() {
   if (!product) return <div>Product not found</div>;
 
   const handleCheckoutDirectly = () => {
-    // Convert the product to CartItem with default quantity and selected values
     const cartItem: CartItem = {
-      ...product,    // Salin semua properti dari Product
-      quantity: 1,   // Set default quantity
-      selected: true, // Set selected to true
+      ...product,    
+      quantity: 1,   
+      selected: true, 
     };
-    addToCart(cartItem);  // Kirim CartItem ke addToCart
-    navigate('/checkout');  // Navigasi ke halaman checkout
+    addToCart(cartItem);  
+    navigate('/checkout');  
   };
 
   return (
