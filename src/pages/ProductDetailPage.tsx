@@ -34,10 +34,12 @@ function ProductDetailPage() {
       selected: true, 
     };
     addToCart(cartItem);  
-    setNotification(`${product.title} has been added to your cart!`); // Tampilkan notifikasi
+    setNotification(`${product.title} has been added to your cart!`);
+
     setTimeout(() => {
-      setNotification(null); // Sembunyikan notifikasi setelah 3 detik
+      setNotification(null);
     }, 3000);
+
     navigate('/checkout');  
   };
 
@@ -48,9 +50,10 @@ function ProductDetailPage() {
       selected: true, // Mark the item as selected
     };
     addToCart(cartItem);
-    setNotification(`${product.title} has been added to your cart!`); // Tampilkan notifikasi
+    setNotification(`${product.title} has been added to your cart!`);
+
     setTimeout(() => {
-      setNotification(null); // Sembunyikan notifikasi setelah 3 detik
+      setNotification(null);
     }, 3000);
   };
 
@@ -58,7 +61,7 @@ function ProductDetailPage() {
     <div className="max-w-4xl mx-auto">
       {/* Notifikasi */}
       {notification && (
-        <div className="bg-green-500 text-white p-4 rounded-md fixed top-0 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="bg-green-500 text-white text-center p-4 rounded-md fixed top-0 left-1/2 transform -translate-x-1/2 z-50 w-3/4 sm:w-1/2">
           {notification}
         </div>
       )}
