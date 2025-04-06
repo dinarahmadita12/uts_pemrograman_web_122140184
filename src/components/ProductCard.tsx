@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import type { Product, CartItem } from '../types'; 
@@ -9,6 +9,7 @@ interface ProductCardProps {
 
 function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useStore();
+  const [notification, setNotification] = useState<string | null>(null); // State untuk notifikasi
 
   const handleAddToCart = () => {
     const cartItem: CartItem = {
@@ -16,11 +17,26 @@ function ProductCard({ product }: ProductCardProps) {
       quantity: 1,   
       selected: true, 
     };
-    addToCart(cartItem); 
+    addToCart(cartItem);
+
+    // Menampilkan notifikasi
+    setNotification(`${product.title} has been added to your cart!`);
+
+    // Menyembunyikan notifikasi setelah 3 detik
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02]">
+      {/* Notifikasi */}
+      {notification && (
+        <div className="bg-green-500 text-white text-center p-4 rounded-md fixed top-0 left-0 right-0 z-50">
+          {notification}
+        </div>
+      )}
+
       <Link to={`/product/${product.id}`}>
         <img
           src={product.image}

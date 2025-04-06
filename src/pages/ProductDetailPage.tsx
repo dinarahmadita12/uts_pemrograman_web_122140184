@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -19,6 +19,8 @@ function ProductDetailPage() {
     },
   });
 
+  const [notification, setNotification] = useState<string | null>(null); // State untuk notifikasi
+
   if (isLoading) return <LoadingSpinner />;
   
   if (error) return <div className="text-red-600">Error loading product</div>;
@@ -32,11 +34,35 @@ function ProductDetailPage() {
       selected: true, 
     };
     addToCart(cartItem);  
+    setNotification(`${product.title} has been added to your cart!`); // Tampilkan notifikasi
+    setTimeout(() => {
+      setNotification(null); // Sembunyikan notifikasi setelah 3 detik
+    }, 3000);
     navigate('/checkout');  
+  };
+
+  const handleAddToCart = () => {
+    const cartItem: CartItem = {
+      ...product,
+      quantity: 1, // Default quantity is 1
+      selected: true, // Mark the item as selected
+    };
+    addToCart(cartItem);
+    setNotification(`${product.title} has been added to your cart!`); // Tampilkan notifikasi
+    setTimeout(() => {
+      setNotification(null); // Sembunyikan notifikasi setelah 3 detik
+    }, 3000);
   };
 
   return (
     <div className="max-w-4xl mx-auto">
+      {/* Notifikasi */}
+      {notification && (
+        <div className="bg-green-500 text-white p-4 rounded-md fixed top-0 left-1/2 transform -translate-x-1/2 z-50">
+          {notification}
+        </div>
+      )}
+
       <button
         onClick={() => navigate(-1)}
         className="mb-6 text-blue-600 hover:text-blue-800 flex items-center"
@@ -75,15 +101,7 @@ function ProductDetailPage() {
             </div>
             
             <button
-              onClick={() => {
-                // Add product to cart
-                const cartItem: CartItem = {
-                  ...product,
-                  quantity: 1, // Default quantity is 1
-                  selected: true, // Mark the item as selected
-                };
-                addToCart(cartItem);
-              }}
+              onClick={handleAddToCart} // Tambahkan ke keranjang
               className="w-full bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors mb-4"
             >
               Add to Cart
@@ -91,7 +109,7 @@ function ProductDetailPage() {
             
             {/* Tombol untuk langsung checkout */}
             <button
-              onClick={handleCheckoutDirectly}
+              onClick={handleCheckoutDirectly} // Langsung checkout
               className="w-full bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors"
             >
               Checkout Directly
