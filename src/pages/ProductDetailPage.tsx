@@ -46,8 +46,8 @@ function ProductDetailPage() {
   const handleAddToCart = () => {
     const cartItem: CartItem = {
       ...product,
-      quantity: 1, // Default quantity is 1
-      selected: true, // Mark the item as selected
+      quantity: 1, 
+      selected: true, 
     };
     addToCart(cartItem);
     setNotification(`${product.title} has been added to your cart!`);

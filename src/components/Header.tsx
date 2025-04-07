@@ -9,9 +9,7 @@ function Header() {
   const cartItemCount = cart.length;
 
   const handleLogout = () => {
-    // Hapus status login dari localStorage
     localStorage.removeItem('isLoggedIn');
-    // Arahkan ke halaman login setelah logout
     window.location.href = '/login'; 
   };
 

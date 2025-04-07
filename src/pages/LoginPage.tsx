@@ -12,11 +12,11 @@ const LoginPage = () => {
 
   const onSubmit = (data: LoginForm) => {
     const storedEmail = localStorage.getItem('userEmail');
-    const storedPassword = localStorage.getItem('userPassword'); // Ambil password dari localStorage
+    const storedPassword = localStorage.getItem('userPassword'); 
 
     if (data.email === storedEmail && data.password === storedPassword) {
-      localStorage.setItem('isLoggedIn', 'true'); // Simpan status login
-      navigate('/'); // Arahkan ke halaman utama setelah login
+      localStorage.setItem('isLoggedIn', 'true'); 
+      navigate('/'); 
     } else {
       alert('Email atau Password salah.');
     }
